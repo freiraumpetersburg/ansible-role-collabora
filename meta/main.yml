@@ -1,0 +1,21 @@
+galaxy_info:
+  role_name: collabora-docker
+  author: Kulturverein Petersburg e.V.
+  description: Ansible Role for deploying a collabora document server via docker
+  company: Kulturverein Petersburg e.V.
+  license: AGPLv3
+
+  min_ansible_version: 1.2
+
+  platforms:
+  - name: Debian
+    versions:
+    - stretch
+    - buster
+
+  galaxy_tags:
+    - nextcloud
+    - collabora
+    - docker
+
+dependencies: []

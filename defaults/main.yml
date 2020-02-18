@@ -1,0 +1,8 @@
+---
+collabora_version: "4.2.0.4"
+collabora_state: "started"
+collabora_port: 1234
+collabora_fqdn: "office.example.com"
+collabora_url: "http{{ 's' if stage == 'production' else '' }}://{{ collabora_fqdn }}"
+collabora_ssl: "{{ 'false' if stage == 'development' else 'true' }}"
+collabora_nextcloud_fqdn: "cloud.example.com"

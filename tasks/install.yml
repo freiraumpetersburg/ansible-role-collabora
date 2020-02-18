@@ -1,0 +1,22 @@
+---
+# Install collabora code docker container
+- name: Install collabora code container
+  docker_container:
+    name: "collabora"
+    image: "collabora/code:{{ collabora_version }}"
+    state: "{{ collabora_state }}"
+    restart_policy: "always"
+    tty: yes
+    capabilities:
+      - MKNOD
+    ports:
+      - "{{ docker_ip }}:{{ collabora_port }}:9980"
+    env:
+      domain: "{{ collabora_nextcloud_fqdn | regex_escape() }}"
+      extra_params: '--o:ssl.enable={{ collabora_ssl }}'
+    etc_hosts: >
+      {
+        "{{ collabora_fqdn }}": "{{ docker_ip }}",
+        "{{ collabora_nextcloud_fqdn }}": "{{ docker_ip }}"
+      }
+  become: yes
