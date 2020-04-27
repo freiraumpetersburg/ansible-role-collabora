@@ -1,5 +1,5 @@
 ---
-collabora_version: "4.2.0.6"
+docker_collabora_version: "4.2.2.2"
 collabora_state: "started"
 collabora_port: 1234
 collabora_fqdn: "office.example.com"
