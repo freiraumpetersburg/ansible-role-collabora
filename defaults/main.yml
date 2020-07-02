@@ -1,6 +1,6 @@
 ---
 stage: "production"
-collabora_version: "4.2.3.1"
+collabora_version: "4.2.5.3"
 collabora_state: "started"
 collabora_port: 1234
 collabora_fqdn: "office.example.com"
