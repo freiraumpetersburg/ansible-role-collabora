@@ -26,13 +26,13 @@ server {
     listen       443 ssl http2;
     listen  [::]:443 ssl http2; {# ipv6 #}
     {% endif %}
-    
+
     server_name  {{ collabora_fqdn }};
 
     {% if stage == "production" -%}
     ssl_certificate /etc/nginx/ssl/letsencrypt/{{ collabora_fqdn }}-bundled.cert;
     ssl_certificate_key /etc/nginx/ssl/letsencrypt/{{ collabora_fqdn }}.key;
-    
+
     include h5bp/directive-only/ssl.conf;
     include h5bp/directive-only/ssl-stapling.conf;
 
@@ -61,7 +61,7 @@ server {
     include acme-challenge-location.conf;
     {% endblock -%}
     {% endif -%}
-    
+
     # static files
     location ^~ /loleaflet {
         proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ docker_ip }}:{{ collabora_port }};
@@ -82,13 +82,13 @@ server {
         proxy_set_header Host $http_host;
         proxy_read_timeout 36000s;
     }
-    
+
     # download, presentation and image upload
     location ~ ^/lool {
         proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ docker_ip }}:{{ collabora_port }};
         proxy_set_header Host $http_host;
     }
-    
+
     # Admin Console websocket
     location ^~ /lool/adminws {
         proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ docker_ip }}:{{ collabora_port }};
@@ -96,5 +96,11 @@ server {
         proxy_set_header Connection "Upgrade";
         proxy_set_header Host $http_host;
         proxy_read_timeout 36000s;
+    }
+
+    # Endpoint with information about availability of various features
+    location ^~ /hosting/capabilities {
+        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ docker_ip }}:{{ collabora_port }};
+        proxy_set_header Host $http_host;
     }
 }
