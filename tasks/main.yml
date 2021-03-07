@@ -1,5 +1,6 @@
 ---
 - import_tasks: install.yml
 - import_tasks: reverse_proxy.yml
+  delegate_to: "{{ collabora_reverse_proxy_hostname }}"
 
 - meta: flush_handlers

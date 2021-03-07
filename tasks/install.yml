@@ -11,13 +11,13 @@
     capabilities:
       - MKNOD
     ports:
-      - "{{ docker_ip }}:{{ collabora_port }}:9980"
+      - "{{ collabora_private_ipv4 }}:{{ collabora_port }}:9980"
     env:
       domain: "{{ collabora_nextcloud_fqdn | regex_escape() }}"
       extra_params: '--o:ssl.enable={{ collabora_ssl }}'
     etc_hosts: >
       {
-        "{{ collabora_fqdn }}": "{{ docker_ip }}",
-        "{{ collabora_nextcloud_fqdn }}": "{{ docker_ip }}"
+        "{{ collabora_fqdn }}": "{{ collabora_docker_ip }}",
+        "{{ collabora_nextcloud_fqdn }}": "{{ collabora_docker_ip }}"
       }
   become: yes

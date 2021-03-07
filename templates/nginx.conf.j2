@@ -64,19 +64,19 @@ server {
 
     # static files
     location ^~ /loleaflet {
-        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ docker_ip }}:{{ collabora_port }};
+        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ collabora_private_ipv4 }}:{{ collabora_port }};
         proxy_set_header Host $http_host;
     }
 
     # WOPI discovery URL
     location ^~ /hosting/discovery {
-        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ docker_ip }}:{{ collabora_port }};
+        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ collabora_private_ipv4 }}:{{ collabora_port }};
         proxy_set_header Host $http_host;
     }
 
     # main websocket
     location ~ ^/lool/(.*)/ws$ {
-        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ docker_ip }}:{{ collabora_port }};
+        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ collabora_private_ipv4 }}:{{ collabora_port }};
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "Upgrade";
         proxy_set_header Host $http_host;
@@ -85,13 +85,13 @@ server {
 
     # download, presentation and image upload
     location ~ ^/lool {
-        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ docker_ip }}:{{ collabora_port }};
+        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ collabora_private_ipv4 }}:{{ collabora_port }};
         proxy_set_header Host $http_host;
     }
 
     # Admin Console websocket
     location ^~ /lool/adminws {
-        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ docker_ip }}:{{ collabora_port }};
+        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ collabora_private_ipv4 }}:{{ collabora_port }};
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "Upgrade";
         proxy_set_header Host $http_host;
@@ -100,7 +100,7 @@ server {
 
     # Endpoint with information about availability of various features
     location ^~ /hosting/capabilities {
-        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ docker_ip }}:{{ collabora_port }};
+        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ collabora_private_ipv4 }}:{{ collabora_port }};
         proxy_set_header Host $http_host;
     }
 }
