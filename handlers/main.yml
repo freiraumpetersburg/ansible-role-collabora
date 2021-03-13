@@ -3,4 +3,5 @@
   service:
     name: nginx
     state: reloaded
+  delegate_to: "{{ collabora_reverse_proxy_hostname }}"
   become: yes
