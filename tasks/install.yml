@@ -15,9 +15,4 @@
     env:
       domain: "{{ collabora_nextcloud_fqdn | regex_escape() }}"
       extra_params: '--o:ssl.enable={{ collabora_ssl }}'
-    etc_hosts: >
-      {
-        "{{ collabora_fqdn }}": "{{ collabora_docker_ip }}",
-        "{{ collabora_nextcloud_fqdn }}": "{{ collabora_docker_ip }}"
-      }
   become: yes

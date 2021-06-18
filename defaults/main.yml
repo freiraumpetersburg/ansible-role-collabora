@@ -7,6 +7,5 @@ collabora_fqdn: "office.example.com"
 collabora_url: "http{{ 's' if stage == 'production' else '' }}://{{ collabora_fqdn }}"
 collabora_ssl: "{{ 'false' if stage == 'development' else 'true' }}"
 collabora_nextcloud_fqdn: "cloud.example.com"
-collabora_docker_ip: 172.17.0.1
 collabora_private_ipv4: 127.0.0.1
 collabora_reverse_proxy_hostname: "{{ inventory_hostname }}"
