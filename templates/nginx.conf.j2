@@ -63,7 +63,7 @@ server {
     {% endif -%}
 
     # static files
-    location ^~ /loleaflet {
+    location ^~ /browser {
         proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ collabora_private_ipv4 }}:{{ collabora_port }};
         proxy_set_header Host $http_host;
     }
@@ -74,8 +74,14 @@ server {
         proxy_set_header Host $http_host;
     }
 
+    # Endpoint with information about availability of various features
+    location ^~ /hosting/capabilities {
+        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ collabora_private_ipv4 }}:{{ collabora_port }};
+        proxy_set_header Host $http_host;
+    }
+
     # main websocket
-    location ~ ^/lool/(.*)/ws$ {
+    location ~ ^/cool/(.*)/ws$ {
         proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ collabora_private_ipv4 }}:{{ collabora_port }};
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "Upgrade";
@@ -84,13 +90,13 @@ server {
     }
 
     # download, presentation and image upload
-    location ~ ^/lool {
+    location ~ ^/(c|l)ool {
         proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ collabora_private_ipv4 }}:{{ collabora_port }};
         proxy_set_header Host $http_host;
     }
 
     # Admin Console websocket
-    location ^~ /lool/adminws {
+    location ^~ /cool/adminws {
         proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ collabora_private_ipv4 }}:{{ collabora_port }};
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "Upgrade";
@@ -98,9 +104,4 @@ server {
         proxy_read_timeout 36000s;
     }
 
-    # Endpoint with information about availability of various features
-    location ^~ /hosting/capabilities {
-        proxy_pass http{% if stage == "production" -%}s{% endif -%}://{{ collabora_private_ipv4 }}:{{ collabora_port }};
-        proxy_set_header Host $http_host;
-    }
 }
